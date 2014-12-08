@@ -1,3 +1,5 @@
+# if your ssh uses a specific .pem file (i.e. Amazon) add  ansible_ssh_private_key_file=/path/to/pemfile for the server
+
 [source]
 yourserverhere.com	ansible_ssh_user="xxxx"  mysql_root_password="xxxx" 
 
