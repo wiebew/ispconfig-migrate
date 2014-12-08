@@ -13,12 +13,16 @@
   - name: create database backup
     mysql_db: name=dbispconfig login_user=root login_password={{mysql_root_password}} target=~/migration_db_content.sql.gz state=dump
 
+  # async polling as the tar job can run for a long time
+  # timeout is now 1 hour
   - name: create files archive
     command: tar czf ~/migration_content.tar.gz -C /var/vmail . creates=~/migration_content.tar.gz
     async: 3600
     poll: 10
 
-  - name: disable services so we get a consistent snapshot
+  # basically we need to keep postfix switched off otherwise we receive mails that will be lost
+  # switching it on for test purposes    
+  - name: enable services 
     service: name={{item}} state=started
     with_items:
       - php5-fpm
