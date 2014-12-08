@@ -19,6 +19,18 @@
     command: tar czf ~/migration_content.tar.gz -C /var/vmail . creates=~/migration_content.tar.gz
     async: 3600
     poll: 10
+    
+  - name: download the files to local
+    fetch: dest=/tmp/ispconfig-migrate/{{item}} src=~/{{item}} fail_on_missing=yes flat=yes 
+    with_items: 
+    - migration_db_content.sql.gz
+    - migration_content.tar.gz
+
+  - name: remove the archives on remote
+    file: path=~/{{item}} state=absent
+    with_items: 
+    - migration_db_content.sql.gz
+    - migration_content.tar.gz
 
   # basically we need to keep postfix switched off otherwise we receive mails that will be lost
   # switching it on for test purposes    
