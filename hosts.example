@@ -1,0 +1,5 @@
+[source]
+yourserverhere.com	ansible_ssh_user="xxxx"  mysql_root_password="xxxx" 
+
+[target]
+yourserverhere.com	ansible_ssh_user="xxxx"  mysql_root_password="xxxx" 

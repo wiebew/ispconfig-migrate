@@ -1,0 +1,18 @@
+hosts
+
+# SSH/SSL keys
+**/*.pem
+**/*.key
+**/*.crt
+**/*.startssl
+**/*.crypted
+
+#OS Stufff
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+

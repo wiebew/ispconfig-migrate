@@ -1,0 +1,26 @@
+---  
+
+  - name: make sure python mysql utilities are present
+    apt: name=python-mysqldb state=present
+  
+  - name: disable services so we get a consistent snapshot
+    service: name={{item}} state=stopped 
+    with_items:
+      - postfix
+      - nginx
+      - php5-fpm
+
+  - name: create database backup
+    mysql_db: name=dbispconfig login_user=root login_password={{mysql_root_password}} target=~/migration_db_content.sql.gz state=dump
+
+  - name: create files archive
+    command: tar czf ~/migration_content.tar.gz -C /var/vmail . creates=~/migration_content.tar.gz
+    async: 3600
+    poll: 10
+
+  - name: disable services so we get a consistent snapshot
+    service: name={{item}} state=started
+    with_items:
+      - php5-fpm
+      - nginx
+      - postfix
