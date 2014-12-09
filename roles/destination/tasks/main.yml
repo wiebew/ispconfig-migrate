@@ -16,7 +16,7 @@
     - migration_db_content.sql.gz
     - migration_content.tar.gz
 
-  - name: create database backup
+  - name: restore database backup
     mysql_db: name=dbispconfig login_user=root login_password={{mysql_root_password}} target=~/migration_db_content.sql.gz state=import
 
   # async polling as the tar job can run for a long time
