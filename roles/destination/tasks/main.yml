@@ -3,7 +3,7 @@
   - name: make sure python mysql utilities are present
     apt: name=python-mysqldb state=present
   
-  - name: disable services so we get a consistent snapshot
+  - name: disable services 
     service: name={{item}} state=stopped 
     with_items:
       - postfix
@@ -32,8 +32,7 @@
     - migration_db_content.sql.gz
     - migration_content.tar.gz
 
-  # basically we need to keep postfix switched off otherwise we receive mails that will be lost
-  # switching it on for test purposes    
+  # switch on services
   - name: enable services 
     service: name={{item}} state=started
     with_items:
