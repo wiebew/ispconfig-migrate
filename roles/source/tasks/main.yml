@@ -21,7 +21,7 @@
     poll: 10
     
   - name: download the files to local
-    fetch: dest=/tmp/ispconfig-migrate/{{item}} src=~/{{item}} fail_on_missing=yes flat=yes 
+    fetch: dest=/tmp/ispconfig-migrate/{{item}} src=/root/{{item}} fail_on_missing=yes flat=yes 
     with_items: 
     - migration_db_content.sql.gz
     - migration_content.tar.gz
@@ -34,9 +34,9 @@
 
   # basically we need to keep postfix switched off otherwise we receive mails that will be lost
   # switching it on for test purposes    
-  - name: enable services 
-    service: name={{item}} state=started
-    with_items:
-      - php5-fpm
-      - nginx
-      - postfix
+  #- name: enable services 
+  #  service: name={{item}} state=started
+  #  with_items:
+  #    - php5-fpm
+  #    - nginx
+  #    - postfix
